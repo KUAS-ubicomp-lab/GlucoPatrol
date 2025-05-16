@@ -97,8 +97,6 @@ class ModelTrainer:
             summary_log[name] = {
                 "best_params": best_params,
                 "metrics": metrics,
-                "model_path": model_path,
-                "predictions_path": pred_path
             }
 
         # Save global summary

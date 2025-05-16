@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# vscode
+.vscode
+
+# Folders
+data
+
+# TESTING, BACKUP, ARCHIVE, NOTES
+
+
+

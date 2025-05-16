@@ -86,11 +86,11 @@ class ModelTrainer:
 
             # Save predictions
             pred_df = pd.DataFrame({"actual": y, "predicted": y_pred})
-            pred_path = f"{self.results_dir}/predictions/{name}_predictions_{self.subject_id}.csv"
+            pred_path = f"{self.results_dir}/predictions/{name}_predictions.csv"
             pred_df.to_csv(pred_path, index=False)
 
             # Save model
-            model_path = f"{self.results_dir}/models/{name}_best_model_{self.subject_id}.pkl"
+            model_path = f"{self.results_dir}/models/{name}_best_model.pkl"
             with open(model_path, 'wb') as f:
                 pickle.dump(best_model, f)
 

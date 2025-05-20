@@ -1,0 +1,7 @@
+max depth mean: 3.4
+max depth med: 2
+max depth mode: 2
+
+n est mean: 86
+n est med: 100
+n st mode: 100

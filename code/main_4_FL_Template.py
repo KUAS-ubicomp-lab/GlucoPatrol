@@ -15,7 +15,7 @@ def main():
 
         subject_results_dir = os.path.join(RESULTS_PATH, str(subject_id))
         model_trainer = ModelTrainer(
-            results_dir=subject_results_dir, subject_id=subject_id)
+            results_dir=subject_results_dir, subject_id=subject_id, model_name="XGBoost")
 
         # Train and evaluate models
         summary = model_trainer.train_all(

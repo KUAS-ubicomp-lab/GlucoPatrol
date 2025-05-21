@@ -4,13 +4,11 @@ import pickle
 from datetime import datetime
 
 import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import Lasso, LinearRegression, Ridge
-from sklearn.model_selection import GridSearchCV, validation_curve
+from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBRegressor
@@ -105,4 +103,4 @@ class ModelTrainer:
             json.dump(summary_log, f, indent=4)
 
         return summary_log
-
+    

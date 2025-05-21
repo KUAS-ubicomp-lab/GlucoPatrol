@@ -1,3 +1,6 @@
+![Contributors](https://img.shields.io/badge/contributor-Thilini-green)![Contributors](https://img.shields.io/badge/contributor-Andrew-orange)![Contributors](https://img.shields.io/badge/contributor-Luna-blue)
+
+
 # System Architecture 
 
 The proposed system is structured into three layers: Data Collection Layer, Processing & Modelling Layer, and User Interface Layer.

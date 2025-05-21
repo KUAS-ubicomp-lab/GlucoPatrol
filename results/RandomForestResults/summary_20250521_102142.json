@@ -1,0 +1,17 @@
+{
+    "RandomForest": {
+        "best_params": {
+            "regressor__max_depth": 10,
+            "regressor__n_estimators": 175
+        },
+        "metrics": {
+            "Model": "",
+            "R2": 0.927369168846975,
+            "MSE": 18.729518074729313,
+            "RMSE": 4.327761323678711,
+            "NRMSE": 0.26950107820382646,
+            "MARD": 2.7593727178668592,
+            "MAE": 2.7005800717819004
+        }
+    }
+}

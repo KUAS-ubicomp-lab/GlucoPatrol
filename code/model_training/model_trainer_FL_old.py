@@ -19,10 +19,10 @@ matplotlib.use('Agg')
 
 
 class ModelTrainer:
-    def __init__(self, results_dir, subject_id, model_name):
+    def __init__(self, results_dir, subject_id):
         self.results_dir = results_dir
-        self.model_name  = model_name
-        os.makedirs(f"{self.results_dir}/{model_name}/", exist_ok=True)
+        os.makedirs(f"{self.results_dir}/models/", exist_ok=True)
+        os.makedirs(f"{self.results_dir}/predictions", exist_ok=True)
 
         self.subject_id = subject_id
 
@@ -94,11 +94,11 @@ class ModelTrainer:
 
             # Save predictions
             pred_df = pd.DataFrame({"actual": y, "predicted": y_pred})
-            pred_path = f"{self.results_dir}/{self.model_name}/{name}_predictions.csv"
+            pred_path = f"{self.results_dir}/predictions/{name}_predictions.csv"
             pred_df.to_csv(pred_path, index=False)
 
             # Save model
-            model_path = f"{self.results_dir}/{self.model_name}/{name}_best_model.pkl"
+            model_path = f"{self.results_dir}/models/{name}_best_model.pkl"
             with open(model_path, 'wb') as f:
                 pickle.dump(best_model, f)
 
@@ -109,7 +109,7 @@ class ModelTrainer:
 
         # Save global summary
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        with open(f"{self.results_dir}/{self.model_name}/summary_{timestamp}.json", "w", encoding="utf-8") as f:
+        with open(f"{self.results_dir}/summary_{timestamp}.json", "w", encoding="utf-8") as f:
             json.dump(summary_log, f, indent=4)
 
         return summary_log

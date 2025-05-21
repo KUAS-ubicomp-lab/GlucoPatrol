@@ -27,10 +27,10 @@ class ModelTrainer:
         self.subject_id = subject_id
 
         self.models = {
-            "LinearRegression": {
-                "model": LinearRegression(),
-                "params": {}
-            },
+            # "LinearRegression": {
+            #     "model": LinearRegression(),
+            #     "params": {}
+            # },
             # "Ridge": {
             #     "model": Ridge(),
             #     "params": {"regressor__alpha": [0.1, 1.0, 10.0, 100.0]}
@@ -39,19 +39,29 @@ class ModelTrainer:
             #     "model": Lasso(max_iter=10000),
             #     "params": {"regressor__alpha": [0.001, 0.01, 0.1, 1.0]}
             # },
-            "RandomForest": {
-                "model": RandomForestRegressor(random_state=42),
-                "params": {
-                    "regressor__n_estimators": [10, 25, 50, 100],
-                    "regressor__max_depth": [2, 4, 6, 8, 10]
-                }
-            },
+            # "RandomForest": {
+            #     "model": RandomForestRegressor(random_state=42),
+            #     "params": {
+            #         "regressor__n_estimators": [10, 25, 50, 100],
+            #         "regressor__max_depth": [2, 4, 6, 8, 10]
+            #     }
+            # },
+            # "XGBoost": {
+            #     "model": XGBRegressor(random_state=42),
+            #     "params": {
+            #         "regressor__n_estimators": [10, 25, 50, 100],
+            #         "regressor__max_depth": [2, 4, 6, 8, 10],
+            #         "regressor__learning_rate": [0.01, 0.1, 0.3]
+            #     }
+            # }
+
+            # SAMPLE - XGBoost
             "XGBoost": {
                 "model": XGBRegressor(random_state=42),
                 "params": {
-                    "regressor__n_estimators": [10, 25, 50, 100],
-                    "regressor__max_depth": [2, 4, 6, 8, 10],
-                    "regressor__learning_rate": [0.01, 0.1, 0.3]
+                    "regressor__n_estimators": [10, 25],
+                    "regressor__max_depth": [2, 4],
+                    "regressor__learning_rate": [0.1, 0.3]
                 }
             }
         }

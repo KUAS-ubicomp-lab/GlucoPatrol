@@ -6,6 +6,7 @@ from utils.import_classes import load_class
 DataLoader = load_class("data_loader")
 ModelTrainer = load_class("model_trainer")
 
+
 def main():
     for subject_id in range(1, 17):
         print(f"Processing subject {subject_id}...")
@@ -15,7 +16,7 @@ def main():
 
         subject_results_dir = os.path.join(RESULTS_PATH, str(subject_id))
         model_trainer = ModelTrainer(
-            results_dir=subject_results_dir, subject_id=subject_id, folder_name="XGBoost", random_seed=42)
+            results_dir=subject_results_dir, subject_id=subject_id, folder_name="XGBoost_Tuned", random_seed=42, n_jobs=18)
 
         # Train and evaluate models
         summary = model_trainer.train_all(

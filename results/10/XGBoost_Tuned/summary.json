@@ -1,0 +1,26 @@
+{
+    "XGBoost_Tuned": {
+        "best_params": {
+            "regressor__colsample_bytree": 0.8,
+            "regressor__gamma": 1.0,
+            "regressor__learning_rate": 0.1,
+            "regressor__max_depth": 9,
+            "regressor__min_child_weight": 1,
+            "regressor__n_estimators": 60,
+            "regressor__subsample": 1.0
+        },
+        "cv_metrics": {
+            "cv_R2_train": 0.37648878193552254,
+            "cv_R2_test": 0.9945478234772832
+        },
+        "prediction_metrics": {
+            "Model": "",
+            "R2": 0.9942572763815712,
+            "MSE": 4.426851782696612,
+            "RMSE": 2.1040085034753573,
+            "NRMSE": 0.0757807602127922,
+            "MARD": 1.3246926095731997,
+            "MAE": 1.4631293706388828
+        }
+    }
+}

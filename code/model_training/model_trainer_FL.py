@@ -19,10 +19,11 @@ matplotlib.use('Agg')
 
 
 class ModelTrainer:
-    def __init__(self, results_dir, subject_id, folder_name, random_seed):
+    def __init__(self, results_dir, subject_id, folder_name, random_seed, n_jobs=25):
         self.results_dir = results_dir
         self.folder_name  = folder_name
         self.random_seed = random_seed
+        self.n_jobs_ = n_jobs
         os.makedirs(f"{self.results_dir}/{folder_name}/", exist_ok=True)
 
         self.subject_id = subject_id
@@ -84,7 +85,7 @@ class ModelTrainer:
             cv = KFold(n_splits=5, shuffle=True, random_state=self.random_seed)
 
             grid = GridSearchCV(
-                pipe, spec["params"], cv=cv, scoring="r2", n_jobs=25, return_train_score=True)
+                pipe, spec["params"], cv=cv, scoring="r2", n_jobs=self.n_jobs_, return_train_score=True)
             grid.fit(X, y)
 
             best_model = grid.best_estimator_
@@ -97,11 +98,11 @@ class ModelTrainer:
 
             # Save predictions
             pred_df = pd.DataFrame({"actual": y, "predicted": y_pred})
-            pred_path = f"{self.results_dir}/{self.folder_name}/{name}_predictions.csv"
+            pred_path = f"{self.results_dir}/{self.folder_name}/predictions.csv"
             pred_df.to_csv(pred_path, index=False)
 
             # Save model
-            model_path = f"{self.results_dir}/{self.folder_name}/{name}_best_model.pkl"
+            model_path = f"{self.results_dir}/{self.folder_name}/best_model.pkl"
             with open(model_path, 'wb') as f:
                 pickle.dump(best_model, f)
 

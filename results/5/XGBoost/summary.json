@@ -5,7 +5,11 @@
             "regressor__max_depth": 4,
             "regressor__n_estimators": 25
         },
-        "metrics": {
+        "cv_metrics": {
+            "cv_R2_train": 0.10846225532635531,
+            "cv_R2_test": 0.6515016590020111
+        },
+        "prediction_metrics": {
             "Model": "",
             "R2": 0.5968779670787432,
             "MSE": 96.03391522087767,

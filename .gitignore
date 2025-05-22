@@ -5,6 +5,7 @@ __pycache__/
 env/
 venv/
 *.log
+.env
 
 # OS specific
 .DS_Store

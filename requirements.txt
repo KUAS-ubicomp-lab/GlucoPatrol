@@ -17,6 +17,7 @@ decorator==5.2.1
 defusedxml==0.7.1
 dill==0.4.0
 docopt==0.6.2
+dotenv==0.9.9
 EMD-signal==1.6.4
 EntropyHub==2.0
 executing==2.2.0
@@ -75,6 +76,7 @@ pyopencl==2025.1
 pyparsing==3.2.3
 PyRQA==8.1.0
 python-dateutil==2.9.0.post0
+python-dotenv==1.1.0
 pytools==2025.1.5
 pytz==2025.2
 PyYAML==6.0.2

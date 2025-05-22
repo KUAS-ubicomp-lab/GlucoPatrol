@@ -1,14 +1,18 @@
 import os
 
-# File Paths
+from dotenv import load_dotenv
 
-BASE_PATH = "/home/thilsk/Documents/12_Projects/12.02_BIL_project/6_BIL_FL"
-DATA_PATH = os.path.join(BASE_PATH, "data/0_dataset")
-SEGDATA_PATH = os.path.join(BASE_PATH, "data/1_segmented_data")
-RAW_FEATURE_PATH = os.path.join(BASE_PATH, "features/0_raw")
-CLEAN_FEATURE_PATH = os.path.join(BASE_PATH, "features/1_clean")
-RESULTS_PATH = os.path.join(BASE_PATH, "results")
+load_dotenv()
 
+# Base path
+BASE_PATH = os.getenv("BASE_PATH")
+
+# Paths built from environment variables
+DATA_PATH = os.path.join(BASE_PATH, os.getenv("DATA_SUBDIR"))
+SEGDATA_PATH = os.path.join(BASE_PATH, os.getenv("SEGDATA_SUBDIR"))
+RAW_FEATURE_PATH = os.path.join(BASE_PATH, os.getenv("RAW_FEATURE_SUBDIR"))
+CLEAN_FEATURE_PATH = os.path.join(BASE_PATH, os.getenv("CLEAN_FEATURE_SUBDIR"))
+RESULTS_PATH = os.path.join(BASE_PATH, os.getenv("RESULTS_SUBDIR"))
 
 # Sampling Rates
 FS = {

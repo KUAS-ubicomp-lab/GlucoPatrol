@@ -120,8 +120,11 @@ class ModelTrainer:
             json.dump(summary_log, f, indent=4)
 
         # Save CV results
-        cv_results_df = pd.DataFrame(grid.cv_results_)
-        cv_results_df.to_csv(f"{self.results_dir}/{self.folder_name}/cv_results.csv", index=False)
+        full_cv_results_df = pd.DataFrame(grid.cv_results_)
+        main_cv_results_df = full_cv_results_df.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time'])
+
+        main_cv_results_df.to_csv(f"{self.results_dir}/{self.folder_name}/cv_results.csv", index=False)
+        full_cv_results_df.to_csv(f"{self.results_dir}/{self.folder_name}/full_cv_results.csv", index=False)
 
         return summary_log
     

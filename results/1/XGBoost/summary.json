@@ -1,0 +1,22 @@
+{
+    "XGBoost": {
+        "best_params": {
+            "regressor__learning_rate": 0.3,
+            "regressor__max_depth": 4,
+            "regressor__n_estimators": 25
+        },
+        "cv_metrics": {
+            "cv_R2_train": 0.4375051277794387,
+            "cv_R2_test": 0.7815637640652691
+        },
+        "prediction_metrics": {
+            "Model": "",
+            "R2": 0.7601759468568676,
+            "MSE": 65.75168631688057,
+            "RMSE": 8.108741352200141,
+            "NRMSE": 0.48971834062360015,
+            "MARD": 5.937406263136087,
+            "MAE": 6.274284796088204
+        }
+    }
+}

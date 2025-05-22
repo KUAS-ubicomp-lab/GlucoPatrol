@@ -49,9 +49,9 @@ class ModelTrainer:
             # "XGBoost": {
             #     "model": XGBRegressor(random_state=42),
             #     "params": {
-            #         "regressor__n_estimators": [10, 25, 50, 100],
-            #         "regressor__max_depth": [2, 4, 6, 8, 10],
-            #         "regressor__learning_rate": [0.01, 0.1, 0.3]
+            #         "regressor__n_estimators": [10, 15, 25],
+            #         "regressor__max_depth": [2, 4, 6],
+            #         "regressor__learning_rate": [0.01, 0.1, 0.15]
             #     }
             # }
 
@@ -104,13 +104,21 @@ class ModelTrainer:
 
             summary_log[name] = {
                 "best_params": best_params,
-                "metrics": metrics,
+                "cv_metrics": {
+                    "cv_R2_train": grid.best_score_,
+                    "cv_R2_test": grid.cv_results_['mean_train_score'][grid.best_index_],
+                },
+                "prediction_metrics": metrics
             }
 
         # Save global summary
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        with open(f"{self.results_dir}/{self.model_name}/summary_{timestamp}.json", "w", encoding="utf-8") as f:
+        # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        with open(f"{self.results_dir}/{self.model_name}/summary.json", "w", encoding="utf-8") as f:
             json.dump(summary_log, f, indent=4)
+
+        # Save CV results
+        cv_results_df = pd.DataFrame(grid.cv_results_)
+        cv_results_df.to_csv(f"{self.results_dir}/{self.model_name}/cv_results.csv", index=False)
 
         return summary_log
     

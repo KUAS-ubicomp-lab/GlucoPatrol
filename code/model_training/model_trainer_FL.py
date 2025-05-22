@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import Lasso, LinearRegression, Ridge
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, KFold
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from xgboost import XGBRegressor
@@ -19,10 +19,11 @@ matplotlib.use('Agg')
 
 
 class ModelTrainer:
-    def __init__(self, results_dir, subject_id, model_name):
+    def __init__(self, results_dir, subject_id, folder_name, random_seed):
         self.results_dir = results_dir
-        self.model_name  = model_name
-        os.makedirs(f"{self.results_dir}/{model_name}/", exist_ok=True)
+        self.folder_name  = folder_name
+        self.random_seed = random_seed
+        os.makedirs(f"{self.results_dir}/{folder_name}/", exist_ok=True)
 
         self.subject_id = subject_id
 
@@ -57,7 +58,7 @@ class ModelTrainer:
 
             # SAMPLE - XGBoost
             "XGBoost": {
-                "model": XGBRegressor(random_state=42),
+                "model": XGBRegressor(random_state=self.random_seed),
                 "params": {
                     "regressor__n_estimators": [10, 25],
                     "regressor__max_depth": [2, 4],
@@ -80,8 +81,10 @@ class ModelTrainer:
                 ("regressor", spec["model"])
             ])
 
+            cv = KFold(n_splits=5, shuffle=True, random_state=self.random_seed)
+
             grid = GridSearchCV(
-                pipe, spec["params"], cv=5, scoring="r2", n_jobs=25, return_train_score=True)
+                pipe, spec["params"], cv=cv, scoring="r2", n_jobs=25, return_train_score=True)
             grid.fit(X, y)
 
             best_model = grid.best_estimator_
@@ -94,11 +97,11 @@ class ModelTrainer:
 
             # Save predictions
             pred_df = pd.DataFrame({"actual": y, "predicted": y_pred})
-            pred_path = f"{self.results_dir}/{self.model_name}/{name}_predictions.csv"
+            pred_path = f"{self.results_dir}/{self.folder_name}/{name}_predictions.csv"
             pred_df.to_csv(pred_path, index=False)
 
             # Save model
-            model_path = f"{self.results_dir}/{self.model_name}/{name}_best_model.pkl"
+            model_path = f"{self.results_dir}/{self.folder_name}/{name}_best_model.pkl"
             with open(model_path, 'wb') as f:
                 pickle.dump(best_model, f)
 
@@ -113,12 +116,12 @@ class ModelTrainer:
 
         # Save global summary
         # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        with open(f"{self.results_dir}/{self.model_name}/summary.json", "w", encoding="utf-8") as f:
+        with open(f"{self.results_dir}/{self.folder_name}/summary.json", "w", encoding="utf-8") as f:
             json.dump(summary_log, f, indent=4)
 
         # Save CV results
         cv_results_df = pd.DataFrame(grid.cv_results_)
-        cv_results_df.to_csv(f"{self.results_dir}/{self.model_name}/cv_results.csv", index=False)
+        cv_results_df.to_csv(f"{self.results_dir}/{self.folder_name}/cv_results.csv", index=False)
 
         return summary_log
     

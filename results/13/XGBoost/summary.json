@@ -1,22 +1,22 @@
 {
     "XGBoost": {
         "best_params": {
-            "regressor__learning_rate": 0.1,
-            "regressor__max_depth": 2,
-            "regressor__n_estimators": 10
+            "regressor__learning_rate": 0.3,
+            "regressor__max_depth": 4,
+            "regressor__n_estimators": 25
         },
         "cv_metrics": {
-            "cv_R2_train": -0.17461149762404643,
-            "cv_R2_test": 0.18878494831749143
+            "cv_R2_train": 0.4173173219126614,
+            "cv_R2_test": 0.8094217414066451
         },
         "prediction_metrics": {
             "Model": "",
-            "R2": 0.15393356580429052,
-            "MSE": 410.7751054716053,
-            "RMSE": 20.267587559243584,
-            "NRMSE": 0.9198186963721217,
-            "MARD": 11.243553758541776,
-            "MAE": 14.423794307999621
+            "R2": 0.7739745967084243,
+            "MSE": 109.73796515709829,
+            "RMSE": 10.475589012418265,
+            "NRMSE": 0.4754212903221476,
+            "MARD": 6.291921919923871,
+            "MAE": 7.9814315164271
         }
     }
 }

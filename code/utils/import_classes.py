@@ -1,9 +1,25 @@
 import importlib
+from pathlib import Path
 
 import yaml
+from config.config import BASE_PATH
+
+# Define config path 
+config_dir = Path(BASE_PATH) / "code" / "config"
+user_config = config_dir / "class_config.yaml"
+default_config = config_dir / "class_config.yaml.example"
+
+# Try loading user config first, then fallback
+if user_config.exists():
+    CONFIG_PATH = user_config
+elif default_config.exists():
+    print("Warning: 'class_config.yaml' not found. Using fallback 'class_config.yaml.example'")
+    CONFIG_PATH = default_config
+else:
+    raise FileNotFoundError("No configuration file found. Expected 'class_config.yaml' or fallback 'class_config.yaml.example' in 'code/config/'.")
 
 
-def load_class(name: str, config_path: str = "/home/thilsk/Documents/12_Projects/12.02_BIL_project/6_BIL_FL/code/config/class_config.yaml"):
+def load_class(name: str, config_path: Path = CONFIG_PATH):
     with open(config_path, "r", encoding = 'utf-8') as f:
         config = yaml.safe_load(f)
     

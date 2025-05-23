@@ -18,7 +18,7 @@ feature_extractor:
 
 feature_cleaner:
   module: feature_engineering.feature_cleaner
-  clasS: FeatureCleaner
+  class: FeatureCleaner
 
 model_trainer:
   module: model_training.model_trainer_FL

@@ -1,114 +1,40 @@
 ![Contributors](https://img.shields.io/badge/contributor-Thilini-green)![Contributors](https://img.shields.io/badge/contributor-Andrew-orange)![Contributors](https://img.shields.io/badge/contributor-Luna-blue)
 
 
-## Getting Started
+# System Architecture 
 
-### Clone the Repository
+The proposed system is structured into three layers: Data Collection Layer, Processing & Modelling Layer, and User Interface Layer.
 
-```bash
-git clone https://github.com/KUAS-ubicomp-lab/GlucoPatrol.git
-cd GlucoPatrol
-git checkout dev # Switch to branch 'dev'
-```
+### Data Collection Layer
+The Empatica EmbracePlus smartwatch will be used to collect high-resolution, multimodal wearable data. This device is equipped with sensors for continuous physiological monitoring, including heart rate, SpO₂, electrodermal activity, and movement. Lightweight and widely used in clinical research and remote patient monitoring, the EmbracePlus allows users to access session data via Empatica’s Care Portal. Users can export the required session data and upload it through the User Interface Layer.
 
-### Setup Instructions
+### Processing & Modelling Layer
+This layer consists of the backend of the web application, particularly a data preparation pipeline and the non-invasive glucose prediction models. Whenever user-uploaded data is sent to the backend, the data will be cleaned using a preparation pipeline and features will be extracted.  These features will be used as inputs to the glucose prediction models to generate a predicted glucose value. 
 
+The models are trained and validated offline using a public dataset containing simultaneously recorded CGM and wearable data from the EmbracePlus predecessor, the Empatica E4. The modeling process follows a structured pipeline comprising data preprocessing, feature engineering, model training/tuning, validation and testing.
 
-#### 1. Create and activate the virtual environment, then install dependancies:
+### User Interface Layer
+This layer comprises the frontend of the web application, allowing users to upload data exported from the Care Portal. Once uploaded, the data is processed by the backend, and the resulting glucose profile is displayed along with additional metrics such as Time in Range (TIR) and the Glucose Management Indicator (GMI).
 
-#### Windows
+# Predictive Modelling using CI/AI Techniques
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-```
+We adopt a bottom-up modeling approach to account for the nested structure of the dataset. Individual models are first trained using data from each subject, followed by the development of a meta-model that ensembles these individual models.
 
-<details>
-<summary> If you get a script execution error</summary>
+Specifically, the dataset is divided into 10 subjects for training and 6 subjects for testing. Ten individual models are trained using the data from each subject in the training set. These models are then aggregated into a meta-model, which is evaluated on the 6 test subjects. The final model performance is calculated as the average across these 6 subjects.
 
-Run:
+Model performance will be evaluated comprehensively using the following metrics:
+* R-squared (R²)
+* Root Mean Squared Error (RMSE)
+* Normalized RMSE (NRMSE)
+* Bland-Altman (BA) Plots
+* Clarke Error Grid (CEG)
 
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-After that, restart the terminal and try activating the environment again.
+In addition, SHAP will be used to interpret the contribution of each feature.
 
-</details>
+# Target Users and Usage Scenarios
+* Diabetes Patients: For self-management and reducing the risk of complications.
+* Healthcare Professionals and Care Providers: To assess long-term glucose fluctuations and recommend lifestyle interventions based on glucose trends.
+* Pre-diabetic and Normoglycemic Individuals: To support lifestyle optimization for diabetes prevention. The system enables regular, non-invasive, and cost-effective glucose monitoring, lowering the barriers to managing glucose levels and overall metabolic health.
 
-##### macOS / Linux
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-#### 2. Configure your environment variables
-
-After setting up the environment, copy the `.env.example` file located at the project root to a new `.env` and update the BASE_PATH variable to match your local project directory.
-
-##### Windows
-
-```bash
-copy .env.example .env
-```
-##### macOS / Linux
-
-```bash
-cp .env.example .env
-```
-Open the newly created `.env` file and update the `BASE_PATH` variable to point to your local project directory.
-
-```bash
-BASE_PATH=C:/Users/HP/Downloads/GlucoPatrol  # Change this to your local path
-DATA_SUBDIR=data/0_dataset
-SEGDATA_SUBDIR=data/1_segmented_data
-RAW_FEATURE_SUBDIR=features/0_raw
-CLEAN_FEATURE_SUBDIR=features/1_clean
-RESULTS_SUBDIR=results
-```
-
-#### 3. Configure class files
-
-##### Windows
-
-```bash
-copy code\config\class_config.yaml.example code\config\class_config.yaml 
-```
-##### macOS / Linux
-
-```bash
-cp code/config/class_config.yaml.example code/config/class_config.yaml 
-```
-Open the newly created `class_config.yaml` file and update the `model_trainer` 's `module` to your custom  `model_trainer.py` file
-```bash
-# Default class configuration
-data_loader:
-  module: preprocessing.data_loader 
-  class: DataLoader
-
-data_segmenter:
-  module: preprocessing.data_segmenter
-  class: DataSegmenter
-
-signal_processor:
-  module: preprocessing.signal_processor
-  class: SignalProcessor
-
-feature_extractor:
-  module: feature_engineering.feature_extractor
-  class: FeatureExtractor
-
-feature_cleaner:
-  module: feature_engineering.feature_cleaner
-  clasS: FeatureCleaner
-
-model_trainer:
-  module: model_training.model_trainer_FL # Change this to your custom model_trainer.py file
-  class: ModelTrainer
-```
-
-
-
-
+### Usage Scenarios
+The GlucoPatrol system is designed for daily use at home, in the workplace, or in other routine environments as a non-invasive alternative to traditional glucose monitoring methods. It operates under free-living conditions without requiring manual data logging. Users simply upload their wearable data via an internet connection to access their glucose profiles.

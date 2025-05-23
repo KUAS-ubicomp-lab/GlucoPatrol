@@ -1,5 +1,9 @@
 ![Contributors](https://img.shields.io/badge/contributor-Thilini-green)![Contributors](https://img.shields.io/badge/contributor-Andrew-orange)![Contributors](https://img.shields.io/badge/contributor-Luna-blue)
 
+# GlucoPatrol
+GlucoPatrol integrates non-invasive glucose prediction models built using wearable data with a web app for glucose level visualization and management.
+
+For setup instructions, check out the [README on the dev branch](https://github.com/KUAS-ubicomp-lab/GlucoPatrol/blob/dev/README.md).
 
 # System Architecture 
 

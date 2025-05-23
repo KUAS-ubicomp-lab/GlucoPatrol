@@ -20,15 +20,12 @@ git checkout dev # Switch to branch 'dev'
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+.venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
-<details>
-<summary> If you get a script execution error</summary>
-
-Run:
-
+If you get a script execution error,
+run:
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
@@ -75,12 +72,10 @@ Add your own `model_trainer_*.py` script in the `code/model_training/` folder to
 #### 4. Configure Class Files
 
 ##### Windows
-
 ```bash
-copy code\config\class_config.yaml.example code\config\class_config.yaml 
+copy code/config/class_config.yaml.example code/config/class_config.yaml 
 ```
 ##### macOS / Linux
-
 ```bash
 cp code/config/class_config.yaml.example code/config/class_config.yaml 
 ```
@@ -120,7 +115,16 @@ model_trainer = ModelTrainer(
             results_dir=subject_results_dir, subject_id=subject_id, folder_name="XGBoost_Tuned", random_seed=42, n_jobs=18)
 ```
 
+Finally, run:
 
+##### Windows
+```bash
+python code/main_4_FL_Template.py
+```
+##### macOS / Linux
+```bash
+python3 code/main_4_FL_Template.py
+```
 
 
 

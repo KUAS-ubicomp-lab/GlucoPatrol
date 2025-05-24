@@ -1,4 +1,4 @@
-![Contributors](https://img.shields.io/badge/contributor-Thilini-green)![Contributors](https://img.shields.io/badge/contributor-Andrew-orange)![Contributors](https://img.shields.io/badge/contributor-Luna-blue)
+![Contributors](https://img.shields.io/badge/contributor-Thilini-mediumseagreen)![Contributors](https://img.shields.io/badge/contributor-Andrew-orange)![Contributors](https://img.shields.io/badge/contributor-Luna-blue)![Contributors](https://img.shields.io/badge/contributor-Ayan-orchid)
 
 # GlucoPatrol
 GlucoPatrol integrates non-invasive glucose prediction models built using wearable data with a web app for glucose level visualization and management.
